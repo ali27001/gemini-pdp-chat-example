@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Product - Koctas Sofa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .product-image {
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 48px;
+        }
+
+        .product-info h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        .product-info .price {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .specs {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .spec {
+            padding: 12px;
+            background: #f9f9f9;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .spec strong {
+            display: block;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .spec span {
+            color: #555;
+        }
+
+        .description {
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .footer {
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .console-hint {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛋️ Koctas Sample Product Page</h1>
+            <p>Test page for PDP Assistant</p>
+        </div>
+
+        <div class="console-hint">
+            <strong>💡 How to test:</strong><br>
+            1. Open DevTools Console (F12)<br>
+            2. Paste the Console snippet from your deployment<br>
+            3. The assistant widget should appear in the bottom-right
+        </div>
+
+        <div class="content">
+            <div class="product-image">🛋️</div>
+
+            <div class="product-info">
+                <h1>Premium Modern Grey Sofa</h1>
+
+                <div class="price">2,499 TL</div>
+
+                <div class="specs">
+                    <div class="spec">
+                        <strong>Color</strong>
+                        <span>Light Grey</span>
+                    </div>
+                    <div class="spec">
+                        <strong>Capacity</strong>
+                        <span>3 Seater (fits 3 people comfortably)</span>
+                    </div>
+                    <div class="spec">
+                        <strong>Material</strong>
+                        <span>100% Polyester Fabric</span>
+                    </div>
+                    <div class="spec">
+                        <strong>Dimensions</strong>
+                        <span>Width: 210 cm, Depth: 90 cm, Height: 85 cm</span>
+                    </div>
+                    <div class="spec">
+                        <strong>Storage</strong>
+                        <span>Yes - Includes storage compartment under seat</span>
+                    </div>
+                    <div class="spec">
+                        <strong>Frame</strong>
+                        <span>Solid wood frame with metal legs</span>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <h3>Product Description</h3>
+                    <p>
+                        This elegant modern sofa combines style and comfort. Perfect for living rooms, lounges, and home offices. 
+                        The soft polyester fabric is durable and easy to clean. The storage compartment provides extra space for 
+                        blankets, pillows, or other items. The sleek metal legs give it a contemporary look that matches any interior 
+                        design style.
+                    </p>
+                    <p style="margin-top: 10px;">
+                        <strong>Key Features:</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Comfortable seating for 3 people</li>
+                            <li>Built-in storage drawer</li>
+                            <li>Easy to assemble</li>
+                            <li>Machine washable fabric covers</li>
+                            <li>5-year warranty</li>
+                            <li>Available in multiple colors: black, white, beige, navy blue, and light grey</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Koctas Sample PDP | This is a test page for the Gengage PDP Assistant challenge</p>
+        </div>
+    </div>
+
+    <!-- Uncomment to test locally:
+    <script src="bundle.js"></script>
+    -->
+</body>
+</html>

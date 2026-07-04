@@ -1,0 +1,14 @@
+{
+  "name": "gengage-pdp-assistant",
+  "version": "1.0.0",
+  "description": "Chrome Gemini Nano PDP Assistant",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/bundle.js --bundle --minify --outfile=dist/bundle.js --platform=browser",
+    "dev": "esbuild src/bundle.js --bundle --outfile=dist/bundle.js --platform=browser --watch",
+    "start": "npm run build && python3 -m http.server 3000 --directory dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.0"
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDP Assistant Bundle</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDP Assistant Bundle</h1>
+    <p>This is a test page. Use the Console snippet below on a real product page.</p>
+    
+    <h2>Console Snippet:</h2>
+    <pre id="snippet" style="
+        background: #f5f5f5;
+        padding: 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+        cursor: copy;
+        border: 1px solid #ddd;
+    "></pre>
+
+    <script>
+        // Generate the snippet
+        const bundleUrl = 'https://YOUR-DEPLOYMENT-URL/bundle.js'; // Will be replaced with actual URL
+        const snippet = `(async () => {
+  const script = document.createElement('script');
+  script.src = '${bundleUrl}';
+  script.onload = () => console.log('✅ PDP Assistant loaded');
+  document.head.appendChild(script);
+})();`;
+
+        document.getElementById('snippet').textContent = snippet;
+        document.getElementById('snippet').addEventListener('click', () => {
+            navigator.clipboard.writeText(snippet);
+            alert('Snippet copied to clipboard!');
+        });
+    </script>
+</body>
+</html>
