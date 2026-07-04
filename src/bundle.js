@@ -4,18 +4,20 @@
 
   // 1. Check Gemini Nano availability
   async function checkGeminiNano() {
-    // Check for new LanguageModel API (Chrome 150+)
-    if ('LanguageModel' in window) {
+    // Check for new LanguageModel API (Chrome 152+)
+    if ('LanguageModel' in window && typeof window.LanguageModel.availability === 'function') {
       try {
-        const availability = await window.LanguageModel.canCreateTextSession();
-        return { available: availability === 'readily-available' || availability === 'after-download', reason: availability === 'readily-available' ? 'Ready' : 'Model downloading...' };
+        const availability = await window.LanguageModel.availability();
+        const isAvailable = availability === 'readily-available' || availability === 'downloadable' || availability === 'available';
+        const reason = availability === 'readily-available' || availability === 'available' ? 'Ready' : availability;
+        return { available: isAvailable, reason };
       } catch (e) {
         return { available: false, reason: e.message };
       }
     }
     
     // Fallback to old window.ai API (Chrome 126-149)
-    if ('ai' in window) {
+    if ('ai' in window && typeof window.ai.canCreateTextSession === 'function') {
       try {
         const available = await window.ai.canCreateTextSession();
         return { available, reason: available ? 'Ready' : 'Model not downloaded yet' };
@@ -125,17 +127,18 @@
   // 3. Initialize Gemini Nano session
   async function initializeGemini() {
     try {
-      // Try new LanguageModel API first
-      if ('LanguageModel' in window) {
+      // Try new LanguageModel API first (Chrome 152+)
+      if ('LanguageModel' in window && typeof window.LanguageModel.create === 'function') {
         const session = await window.LanguageModel.create({
+          language: 'en',
           topK: 40,
           temperature: 0.8,
         });
         return session;
       }
       
-      // Fallback to old window.ai API
-      if ('ai' in window) {
+      // Fallback to old window.ai API (Chrome 126-149)
+      if ('ai' in window && typeof window.ai.createTextSession === 'function') {
         const session = await window.ai.createTextSession({
           topK: 40,
           temperature: 0.8,
