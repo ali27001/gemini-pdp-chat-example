@@ -89,6 +89,31 @@
     // Get all visible text for analysis
     const mainContent = document.body.innerText;
 
+    // Extract specs from HTML table (Koctas has structured specs)
+    const specTable = document.querySelector('table');
+    if (specTable) {
+      const rows = specTable.querySelectorAll('tr');
+      rows.forEach(row => {
+        const th = row.querySelector('th');
+        const td = row.querySelector('td');
+        if (th && td) {
+          const label = th.textContent.trim();
+          const value = td.textContent.trim();
+          facts.specifications.push(`${label}: ${value}`);
+        }
+      });
+    }
+
+    // Extract specs from collapsed sections (#single-prop)
+    const collapseSections = document.querySelectorAll('#single-prop [id^="single-prop-"]');
+    collapseSections.forEach(section => {
+      const title = section.previousElementSibling?.textContent.trim();
+      const content = section.querySelector('.collapse-inner')?.textContent.trim();
+      if (title && content) {
+        facts.specifications.push(`${title}: ${content.substring(0, 300)}`);
+      }
+    });
+
     // Extract specs from visible text
     const lines = mainContent.split('\n')
       .filter(line => {
@@ -96,7 +121,9 @@
         return t.length > 5 && t.length < 250 && !t.includes('javascript') && !t.includes('Kargo');
       })
       .slice(0, 30);
-    facts.specifications = lines;
+    if (facts.specifications.length === 0) {
+      facts.specifications = lines;
+    }
 
     // Look for colors (Turkish + English)
     const colorPatterns = 'black|kara|siyah|white|beyaz|gray|grey|gri|krem|red|kırmızı|blue|mavi|green|yeşil|brown|kahverengi|füme|lacivert|navy|antrasit|bordo|turkuaz';
