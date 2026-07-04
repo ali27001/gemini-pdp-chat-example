@@ -4,16 +4,27 @@
 
   // 1. Check Gemini Nano availability
   async function checkGeminiNano() {
-    if (!('ai' in window)) {
-      return { available: false, reason: 'AI API not available in this browser' };
+    // Check for new LanguageModel API (Chrome 150+)
+    if ('LanguageModel' in window) {
+      try {
+        const availability = await window.LanguageModel.canCreateTextSession();
+        return { available: availability === 'readily-available' || availability === 'after-download', reason: availability === 'readily-available' ? 'Ready' : 'Model downloading...' };
+      } catch (e) {
+        return { available: false, reason: e.message };
+      }
     }
-
-    try {
-      const available = await window.ai.canCreateTextSession();
-      return { available, reason: available ? 'Ready' : 'Model not downloaded yet' };
-    } catch (e) {
-      return { available: false, reason: e.message };
+    
+    // Fallback to old window.ai API (Chrome 126-149)
+    if ('ai' in window) {
+      try {
+        const available = await window.ai.canCreateTextSession();
+        return { available, reason: available ? 'Ready' : 'Model not downloaded yet' };
+      } catch (e) {
+        return { available: false, reason: e.message };
+      }
     }
+    
+    return { available: false, reason: 'AI API not available in this browser' };
   }
 
   // 2. Extract product facts from PDP (Koctas optimized)
@@ -114,11 +125,25 @@
   // 3. Initialize Gemini Nano session
   async function initializeGemini() {
     try {
-      const session = await window.ai.createTextSession({
-        topK: 40,
-        temperature: 0.8,
-      });
-      return session;
+      // Try new LanguageModel API first
+      if ('LanguageModel' in window) {
+        const session = await window.LanguageModel.create({
+          topK: 40,
+          temperature: 0.8,
+        });
+        return session;
+      }
+      
+      // Fallback to old window.ai API
+      if ('ai' in window) {
+        const session = await window.ai.createTextSession({
+          topK: 40,
+          temperature: 0.8,
+        });
+        return session;
+      }
+      
+      return null;
     } catch (e) {
       console.error('Failed to initialize Gemini Nano:', e);
       return null;
